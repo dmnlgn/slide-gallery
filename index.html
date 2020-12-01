@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>slider gallery</title>
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
+</head>
+<body>
+<header>
+    <div class="logo">
+        <h1>slider gallery</h1>
+    </div>
+</header>
+<section id="container" class="wrapper">
+    <!-- gallery -->
+    <div id="gallery">
+        <div class="gallery-container">
+            <div class="gallery-item"><img class="gallery-image" src="images/pic1.jpg" onclick="openLightbox();currentSlide(1)"></div>
+            <div class="gallery-item"><img class="gallery-image" src="images/pic2.jpg" onclick="openLightbox();currentSlide(2)"></div>
+            <div class="gallery-item"><img class="gallery-image" src="images/pic3.jpg" onclick="openLightbox();currentSlide(3)"></div>
+            <div class="gallery-item"><img class="gallery-image" src="images/pic4.jpg" onclick="openLightbox();currentSlide(4)"></div>
+            <div class="gallery-item"><img class="gallery-image" src="images/pic5.jpg" onclick="openLightbox();currentSlide(5)"></div>
+            <div class="gallery-item"><img class="gallery-image" src="images/pic6.jpg" onclick="openLightbox();currentSlide(6)"></div>
+            <div class="gallery-item"><img class="gallery-image" src="images/pic7.jpg" onclick="openLightbox();currentSlide(6)"></div>
+            <div class="gallery-item"><img class="gallery-image" src="images/pic8.jpg" onclick="openLightbox();currentSlide(6)"></div>
+            <div class="gallery-item"><img class="gallery-image" src="images/pic9.jpg" onclick="openLightbox();currentSlide(6)"></div>
+        </div>
+        <!-- lightbox -->
+        <div id="lightbox" class="lightbox-class">
+            <span class="close" onclick="closeLightbox()">&times</span>
+            <div class="lightbox-content">
+                <div class="gallery-item-light"><img class="gallery-image" src="images/pic1.jpg" onclick="currentSlide(1)"></div>
+                <div class="gallery-item-light"><img class="gallery-image" src="images/pic2.jpg" onclick="currentSlide(2)"></div>
+                <div class="gallery-item-light"><img class="gallery-image" src="images/pic3.jpg" onclick="currentSlide(3)"></div>
+                <div class="gallery-item-light"><img class="gallery-image" src="images/pic4.jpg" onclick="currentSlide(4)"></div>
+                <div class="gallery-item-light"><img class="gallery-image" src="images/pic5.jpg" onclick="currentSlide(5)"></div>
+                <div class="gallery-item-light"><img class="gallery-image" src="images/pic6.jpg" onclick="currentSlide(6)"></div>
+                <div class="gallery-item-light"><img class="gallery-image" src="images/pic7.jpg" onclick="currentSlide(6)"></div>
+                <div class="gallery-item-light"><img class="gallery-image" src="images/pic8.jpg" onclick="currentSlide(6)"></div>
+                <div class="gallery-item-light"><img class="gallery-image" src="images/pic9.jpg" onclick="currentSlide(6)"></div>
+            </div>
+            <!-- navigation -->
+            <div class="nav-right"><a class="next" onclick="nextSlide(1)">NEXT</a></div>
+            <div class="nav-left"><a class="prev" onclick="nextSlide(-1)">PREVIOUS</a></div>
+            <div class="form_light"><input type="checkbox" id="checkAuto" name="checkAuto" onclick="autoPlay()"/><label>AUTOPLAY</label></div>
+        </div>
+    </div>
+</section>
+<script>
+    let timer = 0;
+    let indexSlide = 0;
+    let slides = document.getElementsByClassName("gallery-item-light");
+    let elementAuto = document.getElementById("checkAuto");
+    //open lightbox
+    function openLightbox(){
+        document.getElementById("lightbox").style.display = "grid";
+    }
+    //close lightbox
+    function closeLightbox(){
+        document.getElementById("lightbox").style.display = "none";
+        elementAuto.checked = false;
+    }
+
+    function autoPlay(){
+        timer = setTimeout(showSlides, 1000);
+    }
+
+    function showSlides(){
+        let i;
+        for(i=0; i < slides.length; i++){
+            slides[i].style.display = "none";
+        }
+        indexSlide++;
+
+        if(indexSlide > slides.length) {
+            indexSlide = 1;
+        }
+
+        slides[indexSlide-1].style.display = "block";
+
+        clearTimeout(timer);
+        if(elementAuto.checked === true){
+            autoPlay();
+        }
+    }
+
+    function currentSlide(n){
+        let i;
+        indexSlide = n;
+
+        for(i=0; i< slides.length; i++){
+            slides[i].style.display = "none";
+        }
+
+        if(indexSlide < 1){
+            indexSlide = slides.length;
+            n = indexSlide;
+        }
+
+        slides[n-1].style.display = "block";
+        console.log("slider nr " + n);
+    }
+
+    function nextSlide(n){
+        let newSlide = indexSlide + n;
+        if(newSlide < slides.length+1){
+            currentSlide(newSlide);
+            elementAuto.checked = false;
+        }else{
+            currentSlide(1);
+            elementAuto.checked = false;
+        }
+    }
+</script>
+</body>
+</html>
