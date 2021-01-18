@@ -3,6 +3,23 @@
 *::before,::after{
     box-sizing: border-box;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+input,
+textarea,
+button,
+select,
+a {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 html{
     height: auto;
@@ -149,6 +166,11 @@ body{
     text-align: center;
     display: grid;
     align-items: center;
+}
+
+.nav-right a,
+.nav-left a{
+
 }
 
 .nav-right,
